@@ -12,9 +12,10 @@ class Message(models.Model):
     ]
     
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='messages')
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default="user")
     content = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    
     def __str__(self):
-        return f"{self.role.capitalize()} - {self.timestamp.strftime('%Y-%m-%d %H:%M:%S')}"
+        return f"{self.role.capitalize()} - {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}"

@@ -8,7 +8,7 @@ class Chat(models.Model):
     
     title = models.CharField(max_length=155, null=True, blank=True, verbose_name="Chat Title")
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="user")
-
+    
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated At")
 
