@@ -63,12 +63,26 @@ DATABASES = {
     }
 }
 
-# * INFO REDIS CELERY RUN =>     celery -A config worker --loglevel=info
+# !INFO REDIS CELERY RUN - celery -A config worker --loglevel=info
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
+
+# Sonuçlar için Django Celery Results
+INSTALLED_APPS += ['django_celery_results']
+CELERY_RESULT_BACKEND = 'django-db'
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+             "hosts": ["redis://127.0.0.1:6379/0"],
+        },
+    },
+}
+
 
 CACHES = {
     "default": {
@@ -76,11 +90,11 @@ CACHES = {
         "LOCATION": "redis://127.0.0.1:6379/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor", 
         },
-        'KEY_PREFIX': 'llama_', 
+        'KEY_PREFIX': 'anlastik', 
     }
 }
+
 
 
 
